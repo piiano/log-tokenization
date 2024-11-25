@@ -60,7 +60,7 @@ Download vector [a vector](https://vector.dev/docs/setup/quickstart/)
     max_events = 100
     timeout_secs = 1
 
-## Sink Configuration - write the transformed logs to your original sink
+### Sink Configuration - write the transformed logs to your original sink
 
 [sources.my_detokenized_log_source]
   type = "file"
