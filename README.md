@@ -2,6 +2,8 @@
 
 This project demonstrates how to use Piiano Vault to remove PII from logs .
 
+![image info](./flow.png)
+
 ## Configuration
  .env file should contain:
  all fields in logs that should always be removed , 
@@ -32,10 +34,12 @@ pnpm start
 
 ## Vector configuration:
 
+Download vector [a vector](https://vector.dev/docs/setup/quickstart/)
+
 # Vector Configuration File (vector.toml)
 
-[a relative link](vector.toml)
-Your logs will be the declared as a source:
+[a vector configuration](vector.toml)
+### Your logs will be the declared as a source:
 
 [sources.my_log_source]
   type = "file"
@@ -43,7 +47,7 @@ Your logs will be the declared as a source:
   start_at_beginning = true
 
 
-Declare a sink for this service (ASsuming it runs in localhost:3000) :
+### Declare a sink for this service (Assuming it runs in localhost:3000) :
 
 [sinks.tokenize_pii]
   type = "http"
@@ -51,17 +55,12 @@ Declare a sink for this service (ASsuming it runs in localhost:3000) :
   uri = "http://localhost:3000/transform"
   method = "post"
   encoding.codec = "json"
-
-  # Authentication (uncomment and set if needed)
-  # [transforms.tokenize_pii.auth]
-  #   strategy = "bearer"
-  #   token = "your-api-token-here"
-
-  [sinks.tokenize_pii.batch]
+  
+[sinks.tokenize_pii.batch]
     max_events = 100
     timeout_secs = 1
 
-# Sink Configuration
+## Sink Configuration - write the transformed logs to your original sink
 
 [sources.my_detokenized_log_source]
   type = "file"
@@ -69,6 +68,6 @@ Declare a sink for this service (ASsuming it runs in localhost:3000) :
   start_at_beginning = true
 
 [sinks.console]
-  type = "console"  # For testing only; replace with your desired sink type
+  type = "console"  ### For testing only; replace with your desired sink type
   inputs = ["my_detokenized_log_source"]
   encoding.codec = "json"

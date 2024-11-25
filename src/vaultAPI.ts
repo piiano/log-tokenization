@@ -80,9 +80,6 @@ export class VaultAPI {
     }
 
     public async tokenize(values: Array<string>): Promise<StringDictionary> {
-        const s = "a";
-        const b = { [config.logField]: s };
-
         const objectEntries = values.map(value => {
             const req: TokenizeRequest = {
                 "type": "deterministic",

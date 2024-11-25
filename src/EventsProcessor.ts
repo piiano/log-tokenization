@@ -139,7 +139,7 @@ export class EventsProcessor {
         let maskedText = event.eventRequest.eventText;
         for (const entity of sortedEntities) {
             if (entity.beginOffset !== undefined && entity.endOffset !== undefined) {
-                const maskLabel = tokens[maskedText.substring(entity.beginOffset, entity.endOffset )];
+                const maskLabel = "PVLT_"+tokens[maskedText.substring(entity.beginOffset, entity.endOffset )];
 
                 maskedText =
                     maskedText.substring(0, entity.beginOffset) +
