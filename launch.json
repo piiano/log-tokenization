@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch TypeScript Program",
+        "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+        ],
+        "args": [
+          "log-tokenizer/src/tokenize.ts"
+        ],
+        "cwd": "${workspaceFolder}/log-tokenizer",
+        "protocol": "inspector",
+        "console": "integratedTerminal"
+      }
+    ]
+  }
+  
