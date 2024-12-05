@@ -1,0 +1,38 @@
+# Vector Configuration File (vector.toml)
+
+data_dir = "./data"
+
+# Take original log file as input
+[sources.my_log_source]
+  type = "file"
+  include = ["./logs/*input*.log"]
+  start_at_beginning = true
+
+# Transform Configuration
+[sinks.tokenize_pii]
+  type = "http"
+  inputs = ["my_log_source"]
+  uri = "http://localhost:3000/transform"
+  method = "post"
+  encoding.codec = "json"
+
+  # Authentication (uncomment and set if needed)
+  # [transforms.tokenize_pii.auth]
+  #   strategy = "bearer"
+  #   token = "your-api-token-here"
+
+  [sinks.tokenize_pii.batch]
+    max_events = 100
+    timeout_secs = 1
+
+# Sink Configuration
+
+[sources.my_detokenized_log_source]
+  type = "file"
+  include = ["./logs/transformed.log"]
+  start_at_beginning = true
+
+[sinks.console]
+  type = "console"  # For testing only; replace with your desired sink type
+  inputs = ["my_detokenized_log_source"]
+  encoding.codec = "json"
